@@ -1,0 +1,64 @@
+
+application:
+    name: portFolio
+  batch:
+    jdbc:
+      initialize-schema: always
+  datasource:
+    url: ${RANKING_DB}
+    username: ${RANKING_DB_USER}
+    password: ${RANKING_DB_PW}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 0
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    hostname: rank-server
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: ${EUREKA_URl}
+
+logging:
+  level:
+    org.hibernate.type: debug
+    p6spy: info
+
+springdoc:
+  packages-to-scan: TMT.Ranking
+  default-consumes-media-type: application/json;charset=UTF-8
+  default-produces-media-type: application/json;charset=UTF-8
+  swagger-ui:
+    path: /swagger-ui.html
+    disable-swagger-default-url: true
+    display-query-params-without-oauth2: true
+    doc-expansion: none
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /api-docs/json
+    groups:
+      enabled: true
+  cache:
+    disabled: true
+
+#Token
+JWT:
+  SECRET_KEY: sldkfjsoidfjwoeir12393012809vxcv89usdfkjn1203491iu0isdfl
+
+kafka:
+  bootstrap-server: ${KAFKA_SERVER}
+
+FEIGNCLIENT:
+  URL: ${PAYMENT_URL}
