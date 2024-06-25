@@ -1,13 +1,11 @@
-
-application:
+spring:
+  application:
     name: portFolio
-  batch:
-    jdbc:
-      initialize-schema: always
+
   datasource:
-    url: ${RANKING_DB}
-    username: ${RANKING_DB_USER}
-    password: ${RANKING_DB_PW}
+    url: ${PORTFOLIO_DB}
+    username: ${PORTFOLIO_DB_USER}
+    password: ${PORTFOLIO_DB_PW}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
