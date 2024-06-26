@@ -26,5 +26,4 @@ public class MemberStockQueryDslImp implements MemberStockQueryDsl{
 
 
 
-
 }

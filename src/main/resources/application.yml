@@ -15,6 +15,13 @@ spring:
       hibernate:
         format_sql: true
 
+  data:
+    redis:
+      host: ${REDIS_DB}
+      port: ${REDIS_PORT}
+      password: ${REDIS_PASSWORD}
+
+
 server:
   port: 0
 
@@ -55,8 +62,6 @@ springdoc:
 JWT:
   SECRET_KEY: sldkfjsoidfjwoeir12393012809vxcv89usdfkjn1203491iu0isdfl
 
-kafka:
-  bootstrap-server: ${KAFKA_SERVER}
+#kafka:
+#  bootstrap-server: ${KAFKA_SERVER}
 
-FEIGNCLIENT:
-  URL: ${PAYMENT_URL}

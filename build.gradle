@@ -70,19 +70,11 @@ dependencies {
 	//kafka
 	implementation 'org.springframework.kafka:spring-kafka'
 
-	//spring batch
-	implementation 'org.springframework.boot:spring-boot-starter-batch'
-	testImplementation 'org.springframework.batch:spring-batch-test'
-
-
-	//mongodb
-//	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
-
-	//feign client
-	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
-
 	//webflux
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+	//redis
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
 
 }
