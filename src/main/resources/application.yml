@@ -1,13 +1,11 @@
-
-application:
+spring:
+  application:
     name: portFolio
-  batch:
-    jdbc:
-      initialize-schema: always
+
   datasource:
-    url: ${RANKING_DB}
-    username: ${RANKING_DB_USER}
-    password: ${RANKING_DB_PW}
+    url: ${PORTFOLIO_DB}
+    username: ${PORTFOLIO_DB_USER}
+    password: ${PORTFOLIO_DB_PW}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -17,8 +15,15 @@ application:
       hibernate:
         format_sql: true
 
+  data:
+    redis:
+      host: ${REDIS_DB}
+      port: ${REDIS_PORT}
+      password: ${REDIS_PASSWORD}
+
+
 server:
-  port: 0
+  port: 8085
 
 eureka:
   instance:
@@ -57,8 +62,6 @@ springdoc:
 JWT:
   SECRET_KEY: sldkfjsoidfjwoeir12393012809vxcv89usdfkjn1203491iu0isdfl
 
-kafka:
-  bootstrap-server: ${KAFKA_SERVER}
+#kafka:
+#  bootstrap-server: ${KAFKA_SERVER}
 
-FEIGNCLIENT:
-  URL: ${PAYMENT_URL}
