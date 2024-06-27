@@ -1,7 +1,6 @@
-package com.TMT.TMT_BE_PortFolio.mytrade.infrastructure;
+package com.TMT.TMT_BE_PortFolio.myportfolio.infrastructure;
 
-import com.TMT.TMT_BE_PortFolio.myportfolio.dto.MemberStockDto;
-import com.TMT.TMT_BE_PortFolio.mytrade.domain.MemberStock;
+import com.TMT.TMT_BE_PortFolio.myportfolio.domain.MemberStock;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 

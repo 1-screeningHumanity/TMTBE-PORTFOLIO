@@ -1,4 +1,4 @@
-package com.TMT.TMT_BE_PortFolio.mytrade.domain;
+package com.TMT.TMT_BE_PortFolio.myportfolio.domain;
 
 
 import jakarta.persistence.Entity;

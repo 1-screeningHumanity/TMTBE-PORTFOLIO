@@ -9,8 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Mono;
-
+import reactor.core.publisher.Flux;
 @RestController
 @RequiredArgsConstructor
 public class MyPortfolioController {
@@ -19,13 +18,14 @@ public class MyPortfolioController {
     private final DecodingToken decodingToken;
     private final MyPortFolioServiceImp myPortFolioServiceImp;
 
-//    @GetMapping("/portfolio")
-//    public BaseResponse<Mono<MyPortFolioResponseVo>> myPortFolio(@RequestHeader("Authorization") String jwt){
-//
-//        String uuid = decodingToken.getUuid(jwt);
-////        Mono<MyPortFolioResponseVo> myPortFolioResponseVo = myPortFolioServiceImp.getMyPortFolio(uuid);
-//
-//        return  new BaseResponse<>(myPortFolioResponseVo);
-//    }
+    @GetMapping("/portfolio")
+    public BaseResponse<Flux<MyPortFolioResponseVo>> myPortFolio(@RequestHeader
+            ("Authorization") String jwt){
+
+        String uuid = decodingToken.getUuid(jwt);
+        myPortFolioServiceImp.getMyPortFolio(uuid);
+
+        return new BaseResponse<>();
+    }
 
 }

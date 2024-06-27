@@ -1,7 +1,8 @@
-package com.TMT.TMT_BE_PortFolio.mytrade.infrastructure;
+package com.TMT.TMT_BE_PortFolio.myportfolio.infrastructure;
 
 import static com.TMT.TMT_BE_PortFolio.mytrade.domain.QMemberStock.memberStock;
 
+import com.TMT.TMT_BE_PortFolio.myportfolio.infrastructure.MemberStockQueryDsl;
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class MemberStockQueryDslImp implements MemberStockQueryDsl{
+public class MemberStockQueryDslImp implements MemberStockQueryDsl {
 
     private final JPAQueryFactory jpaQueryFactory;
 
