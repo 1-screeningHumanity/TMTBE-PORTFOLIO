@@ -1,5 +1,6 @@
 package com.TMT.TMT_BE_PortFolio.global.config;
 
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,7 +21,7 @@ public class RedisConfig {
     private final Environment environment;
 
     @Value("${spring.data.redis.port}")
-    private int port;
+    private String port;
 
     @Value("${spring.data.redis.host}")
     private String host;
@@ -34,12 +35,14 @@ public class RedisConfig {
         log.info("port = {}", port);
         log.info("password = {}", password);
 
-        RedisStandaloneConfiguration redisConfig = new RedisStandaloneConfiguration();
-        redisConfig.setHostName(host);
-        redisConfig.setPort(port);
-        redisConfig.setPassword(password);
 
-        return new LettuceConnectionFactory(redisConfig);
+        return new LettuceConnectionFactory(host, Integer.parseInt(port));
+//        RedisStandaloneConfiguration redisConfig = new RedisStandaloneConfiguration();
+//        redisConfig.setHostName(host);
+//        redisConfig.setPort(port);
+//        redisConfig.setPassword(password);
+//
+//        return new LettuceConnectionFactory(redisConfig);
 
     }
 

@@ -6,10 +6,9 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class MyPortFolioResponseVo {
+public class HasStockResponseVo {
 
     private String stockName;
-    private Long totalAmount;
-    private Long totalPrice;
+    private Long hasStockPrice;
 
 }

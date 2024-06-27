@@ -23,7 +23,7 @@ spring:
 
 
 server:
-  port: 0
+  port: 8085
 
 eureka:
   instance:
