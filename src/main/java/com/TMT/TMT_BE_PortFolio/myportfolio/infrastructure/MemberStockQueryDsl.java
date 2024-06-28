@@ -5,6 +5,6 @@ import java.util.List;
 
 public interface MemberStockQueryDsl {
 
-    List<Tuple> getMyStockInfo(String uuid);
+    List<Tuple> getStockInfo(String uuid);
 
 }
