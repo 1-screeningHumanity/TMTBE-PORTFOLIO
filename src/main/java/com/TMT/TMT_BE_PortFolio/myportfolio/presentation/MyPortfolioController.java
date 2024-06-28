@@ -7,7 +7,6 @@ import com.TMT.TMT_BE_PortFolio.myportfolio.vo.HasStockResponseVo;
 import com.TMT.TMT_BE_PortFolio.myportfolio.vo.UserStockResponseVo;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;

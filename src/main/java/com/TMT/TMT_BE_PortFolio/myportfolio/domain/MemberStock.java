@@ -1,6 +1,7 @@
 package com.TMT.TMT_BE_PortFolio.myportfolio.domain;
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,19 +17,25 @@ public class MemberStock {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long memberStockId;
+    private Long id;
 
-    private Long amount;
-
-    private String  stockCode;
-
-    private Long totalAmount;
-
-    private String stockName;
-
+    @Column(name = "uuid", nullable = false)
     private String uuid;
 
+    @Column(name = "amount", nullable = false)
+    private Long amount;
+
+    @Column(name = "total_price", nullable = false)
     private Long totalPrice;
+
+    @Column(name = "total_amount", nullable = false)
+    private Long totalAmount;
+
+    @Column(name = "stock_code", nullable = false)
+    private String stockCode;
+
+    @Column(name = "stock_name", nullable = false)
+    private String stockName;
 
 
 
