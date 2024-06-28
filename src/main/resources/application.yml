@@ -1,11 +1,11 @@
 spring:
   application:
-    name: portFolio
+    name: portfolio-server
 
   datasource:
-    url: ${PORTFOLIO_DB}
-    username: ${PORTFOLIO_DB_USER}
-    password: ${PORTFOLIO_DB_PW}
+    url: ${TRADE_READ_ONLY_DB}
+    username: ${TRADE_READ_ONLY_DB_USER}
+    password: ${TRADE_READ_ONLY_DB_PW}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -27,7 +27,7 @@ server:
 eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-    hostname: rank-server
+    hostname: portfolio-server
   client:
     register-with-eureka: true
     fetch-registry: true
@@ -40,7 +40,7 @@ logging:
     p6spy: info
 
 springdoc:
-  packages-to-scan: TMT.Ranking
+  packages-to-scan: com.TMT
   default-consumes-media-type: application/json;charset=UTF-8
   default-produces-media-type: application/json;charset=UTF-8
   swagger-ui:
