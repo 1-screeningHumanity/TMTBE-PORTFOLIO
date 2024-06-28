@@ -15,7 +15,7 @@ public class MemberStockQueryDslImp implements MemberStockQueryDsl {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public List<Tuple> getMyStockInfo(String uuid){
+    public List<Tuple> getStockInfo(String uuid){
 
         return jpaQueryFactory
                 .select(memberStock.stockCode, memberStock.stockName, memberStock.totalAmount)
