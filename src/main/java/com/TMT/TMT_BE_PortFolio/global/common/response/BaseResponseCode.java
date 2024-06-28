@@ -33,6 +33,9 @@ public enum BaseResponseCode {
     EMPTY_YESTERDAYWALLET(HttpStatus.BAD_REQUEST, false, 3002, "어제 지갑정보가 존재하지않습니다."),
     NO_DATA(HttpStatus.BAD_REQUEST, false, 3003, "지갑 정보가 비어있음."),
     INCORRECT_UUID(HttpStatus.BAD_REQUEST, false, 3004, "UUID가 존재하지 않음."),
+    
+    //PortFolio
+    EMPTY_STOCK(HttpStatus.BAD_REQUEST, false, 6001, "보유중인 주식이 없습니다."),
 
 
     //공통 에러. 9000 ~ 9999
@@ -43,7 +46,7 @@ public enum BaseResponseCode {
     NO_HANDLER_FOUND_ERROR(HttpStatus.BAD_REQUEST, false, 9400, "존재 하지 않는 END-POINT"),
     METHOD_NOT_ALLOW_ERROR(HttpStatus.METHOD_NOT_ALLOWED, false, 9500, "(exception error 메세지에 따름)"),
     TOKEN_IS_EXPIRED_ERROR(HttpStatus.UNAUTHORIZED, false, 9999, "(gateway 에서 error 처리)");
-
+    
     private final HttpStatus httpStatus;
     private final boolean isSuccess;
     private final int code;

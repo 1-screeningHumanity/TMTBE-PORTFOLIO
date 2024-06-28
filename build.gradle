@@ -1,16 +1,14 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.3.1'
-	id 'io.spring.dependency-management' version '1.1.5'
+	id 'org.springframework.boot' version '3.2.5'
+	id 'io.spring.dependency-management' version '1.1.4'
 }
 
-group = 'com.TMT'
-version = '0.0.1-SNAPSHOT'
+group = 'ScreeningHumanity'
+version = '0.0.1'
 
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
-	}
+	sourceCompatibility = '17'
 }
 
 configurations {
@@ -23,8 +21,15 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+//	set('springCloudVersion', "2023.0.1")
+	set('springCloudVersion', "2023.0.0")
+	//https://github.com/spring-cloud/spring-cloud-netflix/issues/4275
+	//24/07 - 2023.0.1 version 오픈된 문제 있어서 0으로 사용.
+}
+
 dependencies {
-//JPA
+	//JPA
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
 	//Validation
@@ -63,20 +68,41 @@ dependencies {
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5', 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
 	//kafka
-	implementation 'org.springframework.kafka:spring-kafka'
+//	implementation 'org.springframework.kafka:spring-kafka'
 
-	//spring batch
-	implementation 'org.springframework.boot:spring-boot-starter-batch'
-	testImplementation 'org.springframework.batch:spring-batch-test'
+	//webflux
+//	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
-
-	//mongodb
-//	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	//redis
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
 	//feign client
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+//QueryDSL_____________________________________
+def generated = "src/main/generated"
+
+tasks.withType(JavaCompile) {
+	options.getGeneratedSourceOutputDirectory().set(file(generated))
+}
+
+sourceSets {
+	main.java.srcDirs += [generated]
+}
+
+clean {
+	delete file(generated)
+}
+//_____________________________________________
