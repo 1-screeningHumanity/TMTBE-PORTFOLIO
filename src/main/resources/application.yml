@@ -22,7 +22,7 @@ spring:
       password: ${REDIS_PASSWORD}
 
 server:
-  port: 0
+  port: 8085
 
 eureka:
   instance:

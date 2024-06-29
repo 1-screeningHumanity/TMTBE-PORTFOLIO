@@ -52,6 +52,8 @@ public class MyPortFolioServiceImp implements MyPortfolioService {
         for (MemberStockDto memberStockList : memberStockDto) {
 
             String stockCode = memberStockList.getStockCode();
+            Long totalAmount = memberStockList.getTotalAmount();
+            String stockName = memberStockList.getStockName();
             String key = "stock:" + stockCode;
 
             // Redis에서 주식 가격 조회
@@ -64,9 +66,7 @@ public class MyPortFolioServiceImp implements MyPortfolioService {
             }
             // Long 타입으로 변환
             Long stockPrice = Long.parseLong(firstPart);
-            Long hasStcokPrice = memberStockList.getTotalAmount() * stockPrice;
-            HasStockResponseVo hasStock = new HasStockResponseVo(memberStockList.getStockName(),
-                    hasStcokPrice);
+            HasStockResponseVo hasStock = new HasStockResponseVo(stockName, totalAmount, stockPrice);
             hasStockDto.add(hasStock);
 
         }
