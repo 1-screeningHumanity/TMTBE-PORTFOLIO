@@ -9,6 +9,7 @@ import lombok.Getter;
 public class HasStockResponseVo {
 
     private String stockName;
-    private Long hasStockPrice;
+    private Long totalAmount;
+    private Long stockPrice;
 
 }
