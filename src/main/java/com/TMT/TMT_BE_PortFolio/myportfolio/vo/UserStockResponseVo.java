@@ -8,7 +8,9 @@ import lombok.Getter;
 public class UserStockResponseVo {
 
     private String nickname;
+    private String grade;
     private String stockName;
-    private Long hasStockPrice;
+    private Long totalAmount;
+    private Long stockPrice;
 
 }

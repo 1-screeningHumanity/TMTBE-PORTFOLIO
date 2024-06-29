@@ -16,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -46,13 +45,15 @@ public class MyPortFolioServiceImp implements MyPortfolioService {
 
     }
 
-    @Override
+    @Override //내가 보유중인 주식정보 조회
     public List<HasStockResponseVo> stockInfoRead(List<MemberStockDto> memberStockDto) {
 
         List<HasStockResponseVo> hasStockDto = new ArrayList<>();
         for (MemberStockDto memberStockList : memberStockDto) {
 
             String stockCode = memberStockList.getStockCode();
+            Long totalAmount = memberStockList.getTotalAmount();
+            String stockName = memberStockList.getStockName();
             String key = "stock:" + stockCode;
 
             // Redis에서 주식 가격 조회
@@ -65,9 +66,7 @@ public class MyPortFolioServiceImp implements MyPortfolioService {
             }
             // Long 타입으로 변환
             Long stockPrice = Long.parseLong(firstPart);
-            Long hasStcokPrice = memberStockList.getTotalAmount() * stockPrice;
-            HasStockResponseVo hasStock = new HasStockResponseVo(memberStockList.getStockName(),
-                    hasStcokPrice);
+            HasStockResponseVo hasStock = new HasStockResponseVo(stockName, totalAmount, stockPrice);
             hasStockDto.add(hasStock);
 
         }
@@ -85,7 +84,7 @@ public class MyPortFolioServiceImp implements MyPortfolioService {
         return sendUserHasStock(feignClientResponseDto);
     }
 
-    @Override
+    @Override //다른회원 보유중인 주식 조회
     public List<UserStockResponseVo> sendUserHasStock(FeignClientResponseDto
             feignClientResponseDto) {
 
@@ -93,12 +92,16 @@ public class MyPortFolioServiceImp implements MyPortfolioService {
         log.info("uuid ={} ",uuid);
         List<Tuple> tupleList = memberStockQueryDslImp.getStockInfo(uuid);
         List<MemberStockDto> memberStockDto = tupleList.stream().map(this::maptoDto).toList();
+        String nickName = feignClientResponseDto.getNickname();
+        String grade = feignClientResponseDto.getGrade();
 
         List<UserStockResponseVo> userHasStock = new ArrayList<>();
         for (MemberStockDto memberStockList : memberStockDto) {
 
             String stockCode = memberStockList.getStockCode();
             String key = "stock:" + stockCode;
+            Long totalAmount = memberStockList.getTotalAmount();
+            String stockName = memberStockList.getStockName();
 
             // Redis에서 주식 가격 조회
             String stockPriceStr = String.valueOf(redisTemplate.opsForValue().get(key));
@@ -110,10 +113,9 @@ public class MyPortFolioServiceImp implements MyPortfolioService {
             }
             // Long 타입으로 변환
             Long stockPrice = Long.parseLong(firstPart);
-            Long hasStcokPrice = memberStockList.getTotalAmount() * stockPrice;
-            UserStockResponseVo hasStock = new UserStockResponseVo(
-                    feignClientResponseDto.getNickname(), memberStockList.getStockName(),
-                    hasStcokPrice);
+
+            UserStockResponseVo hasStock = new UserStockResponseVo(nickName, grade,
+                    stockName, totalAmount, stockPrice);
             userHasStock.add(hasStock);
 
         }
