@@ -93,6 +93,7 @@ public class MyPortFolioServiceImp implements MyPortfolioService {
         List<Tuple> tupleList = memberStockQueryDslImp.getStockInfo(uuid);
         List<MemberStockDto> memberStockDto = tupleList.stream().map(this::maptoDto).toList();
         String nickName = feignClientResponseDto.getNickname();
+        String grade = feignClientResponseDto.getGrade();
 
         List<UserStockResponseVo> userHasStock = new ArrayList<>();
         for (MemberStockDto memberStockList : memberStockDto) {
@@ -113,7 +114,7 @@ public class MyPortFolioServiceImp implements MyPortfolioService {
             // Long 타입으로 변환
             Long stockPrice = Long.parseLong(firstPart);
 
-            UserStockResponseVo hasStock = new UserStockResponseVo(nickName,
+            UserStockResponseVo hasStock = new UserStockResponseVo(nickName, grade,
                     stockName, totalAmount, stockPrice);
             userHasStock.add(hasStock);
 
