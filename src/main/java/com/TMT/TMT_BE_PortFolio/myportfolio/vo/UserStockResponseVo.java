@@ -9,6 +9,6 @@ public class UserStockResponseVo {
 
     private String nickname;
     private String stockName;
-    private Long hasStockPrice;
-
+    private Long totalAmount;
+    private Long stockPrice;
 }
