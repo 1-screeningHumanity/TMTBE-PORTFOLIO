@@ -8,10 +8,6 @@ import java.util.List;
 
 public interface MyPortfolioService {
 
-    //MemberStock Read
-
-
-    //MemberStock Read
     List<HasStockResponseVo> getMyPortFolio(String uuid);
 
     List<HasStockResponseVo> stockInfoRead(List<MemberStockDto> memberStockDto);
@@ -20,4 +16,5 @@ public interface MyPortfolioService {
 
     List<UserStockResponseVo> sendUserHasStock(FeignClientResponseDto
             feignClientResponseDto);
+
 }
