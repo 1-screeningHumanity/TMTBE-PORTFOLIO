@@ -2,6 +2,8 @@ package com.TMT.TMT_BE_PortFolio.myportfolio.application;
 
 import static com.TMT.TMT_BE_PortFolio.myportfolio.domain.QMemberStock.memberStock;
 
+import com.TMT.TMT_BE_PortFolio.global.common.exception.CustomException;
+import com.TMT.TMT_BE_PortFolio.global.common.response.BaseResponseCode;
 import com.TMT.TMT_BE_PortFolio.myportfolio.dto.FeignClientResponseDto;
 import com.TMT.TMT_BE_PortFolio.myportfolio.dto.FeignClientResponseMapperDto;
 import com.TMT.TMT_BE_PortFolio.myportfolio.vo.HasStockResponseVo;
@@ -31,6 +33,9 @@ public class MyPortFolioServiceImp implements MyPortfolioService {
     @Override //MemberStock Read
     public List<HasStockResponseVo> getMyPortFolio(String uuid) {
         List<Tuple> tupleList = memberStockQueryDslImp.getStockInfo(uuid);
+        if (tupleList.isEmpty()) {
+            throw new CustomException(BaseResponseCode.EMPTY_STOCK);
+        }
         List<MemberStockDto> memberStockDto = tupleList.stream().map(this::maptoDto).toList();
         return stockInfoRead(memberStockDto);
     }
@@ -91,6 +96,9 @@ public class MyPortFolioServiceImp implements MyPortfolioService {
         String uuid = feignClientResponseDto.getUuid();
         log.info("uuid ={} ",uuid);
         List<Tuple> tupleList = memberStockQueryDslImp.getStockInfo(uuid);
+        if (tupleList.isEmpty()) {
+            throw new CustomException(BaseResponseCode.EMPTY_STOCK);
+        }
         List<MemberStockDto> memberStockDto = tupleList.stream().map(this::maptoDto).toList();
         String nickName = feignClientResponseDto.getNickname();
         String grade = feignClientResponseDto.getGrade();
