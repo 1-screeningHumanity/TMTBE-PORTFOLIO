@@ -33,10 +33,10 @@ public class MyPortFolioServiceImp implements MyPortfolioService {
     @Override //MemberStock Read
     public List<HasStockResponseVo> getMyPortFolio(String uuid) {
         List<Tuple> tupleList = memberStockQueryDslImp.getStockInfo(uuid);
-        if (tupleList.isEmpty()) {
+        List<MemberStockDto> memberStockDto = tupleList.stream().map(this::maptoDto).toList();
+        if (memberStockDto.isEmpty()) {
             throw new CustomException(BaseResponseCode.EMPTY_STOCK);
         }
-        List<MemberStockDto> memberStockDto = tupleList.stream().map(this::maptoDto).toList();
         return stockInfoRead(memberStockDto);
     }
 
@@ -83,7 +83,6 @@ public class MyPortFolioServiceImp implements MyPortfolioService {
 
         FeignClientResponseMapperDto feignClientResponseMapperDto = sendNickname.sendNickname(nickname);
         FeignClientResponseDto feignClientResponseDto = feignClientResponseMapperDto.getData();
-
         log.info("feignClientResponseDtouuid ={} ",feignClientResponseDto.getNickname());
         log.info("feignClientResponseDtoNickname ={} ",feignClientResponseDto.getNickname());
         return sendUserHasStock(feignClientResponseDto);
@@ -96,12 +95,17 @@ public class MyPortFolioServiceImp implements MyPortfolioService {
         String uuid = feignClientResponseDto.getUuid();
         log.info("uuid ={} ",uuid);
         List<Tuple> tupleList = memberStockQueryDslImp.getStockInfo(uuid);
-        if (tupleList.isEmpty()) {
-            throw new CustomException(BaseResponseCode.EMPTY_STOCK);
-        }
         List<MemberStockDto> memberStockDto = tupleList.stream().map(this::maptoDto).toList();
         String nickName = feignClientResponseDto.getNickname();
         String grade = feignClientResponseDto.getGrade();
+
+        if (memberStockDto.isEmpty()) {
+            UserStockResponseVo hasStock = new UserStockResponseVo(nickName, grade,
+                    null, null, null);
+            List<UserStockResponseVo> userHasStock = new ArrayList<>();
+            userHasStock.add(hasStock);
+            return userHasStock;
+        }
 
         List<UserStockResponseVo> userHasStock = new ArrayList<>();
         for (MemberStockDto memberStockList : memberStockDto) {
