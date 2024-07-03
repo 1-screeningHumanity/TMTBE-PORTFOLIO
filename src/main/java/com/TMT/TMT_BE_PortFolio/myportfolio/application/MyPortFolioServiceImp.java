@@ -116,6 +116,7 @@ public class MyPortFolioServiceImp implements MyPortfolioService {
             String key = "stock:" + stockCode;
             Long totalAmount = memberStockList.getTotalAmount();
             String stockName = memberStockList.getStockName();
+            Long totalPrice = memberStockList.getTotalPrice();
 
             // Redis에서 주식 가격 조회
             String stockPriceStr = String.valueOf(redisTemplate.opsForValue().get(key));
@@ -127,7 +128,7 @@ public class MyPortFolioServiceImp implements MyPortfolioService {
             }
             // Long 타입으로 변환
             Long stockPrice = Long.parseLong(firstPart);
-            BigDecimal averagePrice = BigDecimal.valueOf(totalAmount/totalAmount);
+            BigDecimal averagePrice = BigDecimal.valueOf(totalAmount/totalPrice);
 
             UserStockResponseVo hasStock = new UserStockResponseVo(nickName, grade,
                     stockName, totalAmount, stockPrice, averagePrice);
