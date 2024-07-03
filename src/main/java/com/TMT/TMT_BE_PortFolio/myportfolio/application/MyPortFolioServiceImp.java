@@ -48,6 +48,7 @@ public class MyPortFolioServiceImp implements MyPortfolioService {
         String stockCode = tuple.get(memberStock.stockCode);
         String stockName = tuple.get(memberStock.stockName);
         Long totalPrice = tuple.get(memberStock.totalPrice);
+        log.info("totalPrice={}", totalPrice);
         return new MemberStockDto(stockCode, stockName, totalAmount, uuid, totalPrice);
 
     }
