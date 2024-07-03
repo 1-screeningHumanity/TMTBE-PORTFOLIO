@@ -48,7 +48,7 @@ public class MyPortFolioServiceImp implements MyPortfolioService {
         String stockCode = tuple.get(memberStock.stockCode);
         String stockName = tuple.get(memberStock.stockName);
         Long totalPrice = tuple.get(memberStock.totalPrice);
-        log.info("totalPrice={}", totalPrice);
+
         return new MemberStockDto(stockCode, stockName, totalAmount, uuid, totalPrice);
 
     }
@@ -129,7 +129,10 @@ public class MyPortFolioServiceImp implements MyPortfolioService {
             }
             // Long 타입으로 변환
             Long stockPrice = Long.parseLong(firstPart);
-            BigDecimal averagePrice = BigDecimal.valueOf(totalAmount/totalPrice);
+
+            BigDecimal amountBD = BigDecimal.valueOf(totalAmount);
+            BigDecimal priceBD = BigDecimal.valueOf(totalPrice);
+            BigDecimal averagePrice = priceBD.divide(amountBD, 10, BigDecimal.ROUND_HALF_UP);
 
             UserStockResponseVo hasStock = new UserStockResponseVo(nickName, grade,
                     stockName, totalAmount, stockPrice, averagePrice);
