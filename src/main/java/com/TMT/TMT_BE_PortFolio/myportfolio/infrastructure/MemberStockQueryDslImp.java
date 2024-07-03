@@ -18,7 +18,7 @@ public class MemberStockQueryDslImp implements MemberStockQueryDsl {
     public List<Tuple> getStockInfo(String uuid){
 
         return jpaQueryFactory
-                .select(memberStock.stockCode, memberStock.stockName, memberStock.totalAmount)
+                .select(memberStock.stockCode, memberStock.stockName, memberStock.totalAmount, memberStock.totalPrice)
                 .from(memberStock)
                 .where(memberStock.uuid.eq(uuid).and(memberStock.totalAmount.gt(0)))
                 .fetch();

@@ -11,6 +11,7 @@ import com.TMT.TMT_BE_PortFolio.myportfolio.dto.MemberStockDto;
 import com.TMT.TMT_BE_PortFolio.myportfolio.infrastructure.MemberStockQueryDslImp;
 import com.TMT.TMT_BE_PortFolio.myportfolio.vo.UserStockResponseVo;
 import com.querydsl.core.Tuple;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -46,7 +47,8 @@ public class MyPortFolioServiceImp implements MyPortfolioService {
         String uuid = tuple.get(memberStock.uuid);
         String stockCode = tuple.get(memberStock.stockCode);
         String stockName = tuple.get(memberStock.stockName);
-        return new MemberStockDto(stockCode, stockName, totalAmount, uuid);
+        Long totalPrice = tuple.get(memberStock.totalPrice);
+        return new MemberStockDto(stockCode, stockName, totalAmount, uuid, totalPrice);
 
     }
 
@@ -101,7 +103,7 @@ public class MyPortFolioServiceImp implements MyPortfolioService {
 
         if (memberStockDto.isEmpty()) {
             UserStockResponseVo hasStock = new UserStockResponseVo(nickName, grade,
-                    null, null, null);
+                    null, null, null ,null);
             List<UserStockResponseVo> userHasStock = new ArrayList<>();
             userHasStock.add(hasStock);
             return userHasStock;
@@ -125,9 +127,10 @@ public class MyPortFolioServiceImp implements MyPortfolioService {
             }
             // Long 타입으로 변환
             Long stockPrice = Long.parseLong(firstPart);
+            BigDecimal averagePrice = BigDecimal.valueOf(totalAmount/totalAmount);
 
             UserStockResponseVo hasStock = new UserStockResponseVo(nickName, grade,
-                    stockName, totalAmount, stockPrice);
+                    stockName, totalAmount, stockPrice, averagePrice);
             userHasStock.add(hasStock);
 
         }

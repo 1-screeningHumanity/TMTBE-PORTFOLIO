@@ -13,6 +13,6 @@ public class MemberStockDto {
     private String stockName;
     private Long totalAmount;
     private String uuid;
-
+    private Long totalPrice;
 
 }
